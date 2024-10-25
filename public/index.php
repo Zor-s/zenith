@@ -5,14 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="css/globals.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
     body,
     html {
         height: 100%;
         margin: 0;
+        font-family: "Inter", sans-serif;
     }
 
     .switch {
@@ -53,11 +57,11 @@
     }
 
     input:checked+.slider {
-        background-color: #2196F3;
+        background-color: var(--primary);
     }
 
     input:focus+.slider {
-        box-shadow: 0 0 1px #2196F3;
+        box-shadow: 0 0 1px var(--primary);
     }
 
     input:checked+.slider:before {
@@ -76,13 +80,9 @@
     }
 
     .wrapper {
-        display: flex;
         height: 100vh;
     }
 
-    .intro {
-        width: 300px;
-    }
 
     form {
         display: flex;
@@ -91,17 +91,84 @@
 
     .form-container {
         position: fixed;
-        top: 20%;
+        top: 15%;
         right: 0;
+        margin-right: 3em;
     }
 
     .intro {
         position: absolute;
         top: 50%;
         left: 50%;
+        width: 300px;
         transform: translate(-50%, -50%);
         margin-top: 100px;
         line-height: 1.25;
+        font-weight: 500;
+    }
+
+    #logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+    }
+
+    #signupButton,
+    #forgotButton {
+        color: var(--primary);
+    }
+
+    #forgotButton:hover,
+    #signupButton:hover {
+        border-bottom: 1px solid var(--primary);
+    }
+
+    #submitButton {
+        background-color: var(--primary);
+        color: white;
+    }
+
+    #submitButton:hover {
+        background-color: var(--primary-lite);
+        color: var(--primary);
+    }
+
+    #greeting {
+        font-size: 1.4em;
+    }
+
+    form input {
+        padding: 10px;
+        padding-right: 40px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        width: 100%;
+        height: 60px;
+    }
+
+    form input::placeholder {
+        font-size: large;
+        font-weight: 450;
+
+    }
+
+    #left-pic {
+        left: -30px;
+        margin-top: 60px;
+
+    }
+
+    .eyeIcon {
+        position: absolute;
+        top: 60%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        width: 25px;
+        height: 25px;
+        opacity: 0.6;
     }
 
     /* Mobile Devices */
@@ -115,10 +182,17 @@
         }
 
         .form-container {
-            width: 80%;
+            width: 90%;
+            margin-right: 5%;
+        }
+
+        #remember,
+        #forgotButton {
+            font-size: smaller;
         }
     }
 
+    /* Mobile-Laptop Devices */
     @media only screen and (min-width: 768px) and (max-width: 999px) {
         .intro {
             display: none;
@@ -130,10 +204,14 @@
 
         .form-container {
             width: 450px;
+            margin-right: 20%;
         }
+
+
     }
 
-    @media only screen and (min-width: 1000px) and (max-width: 1324px) {
+    /* Laptop Devices */
+    @media only screen and (min-width: 1000px) and (max-width: 1279px) {
         .intro {
             display: none;
         }
@@ -144,14 +222,39 @@
     }
 
     /* Laptop Devices */
-    @media only screen and (min-width: 1325px) and (max-width: 1780px) {
+    @media only screen and (min-width: 1280px) and (max-width: 1780px) {
         .intro {
             font-size: small;
             width: 40ch;
+            font-weight: 700;
+            margin-top: 150px;
+        }
+
+        #left-pic {
+            top: -80px;
         }
 
         .form-container {
             width: 400px;
+            top: 10%;
+        }
+
+    }
+
+    @media only screen and (min-width: 1440px) and (max-width: 1780px) {
+        #left-pic {
+            top: 5%;
+        }
+
+        .intro {
+            font-size: medium;
+            width: 40ch;
+            font-weight: 700;
+        }
+
+        .form-container {
+            width: 400px;
+            top: 20%;
         }
     }
 
@@ -159,7 +262,10 @@
     @media only screen and (min-width: 1781px) {
         .intro {
             font-size: larger;
-            width: 60ch;
+            width: 55ch;
+            margin-top: 150px;
+            font-weight: 700;
+
         }
 
         .form-container {
@@ -170,41 +276,56 @@
 
 <body>
     <div class="wrapper">
-        <img id="left-pic" class="align-items-center position-fixed me-5" src="images/ZENITHaf.png" alt="Zenith Logo with Shadow" width="650px">
+        <img id="left-pic" class="align-items-center position-fixed me-5" src="images/ZENITHaf.png" alt="Zenith Logo with Shadow" width="650px" draggable="false">
         <div class="intro">
             <p>With the increasing complexity of modern work and life, managing time and tasks
                 efficiently has become a major challenge for many individuals and teams. Zenith is
                 designed to solve these challenges by providing a comprehensive productivity tool that
                 helps users manage tasks, set priorities, and monitor their progress in real time. </p>
         </div>
-        <div class="form-container me-5">
+        <div class="form-container">
             <form>
-                <img src="images/ZENITHfd.png" width="200px" alt="Zenith Logo">
-                <strong>Nice to see you again!</strong>
+                <div id="logo" class="pb-4"><img src="images/ZENITHfd.png" width="200px" alt="Zenith Logo" draggable="false"></div>
+                <div id="greeting"><strong>Nice to see you again!</strong></div>
                 <div class="form-group mt-3">
-                    <label for="emailOrPhone">Login</label>
-                    <input type="text" class="form-control" id="emailOrPhone" name="emailOrPhone" aria-describedby="emailHelp" placeholder="Email or Phone Number">
+                    <label for="emailOrPhone" class="ps-3" id="loginLabel">Login</label>
+                    <input type="text" class="form-control" id="emailOrPhone" name="emailOrPhone" placeholder="Email or Phone Number">
                 </div>
                 <div class="form-group mt-3">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <label for="password" class="ps-3" id="passwordLabel">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Password">
+                    <img src="images/eye.png" alt="Show" class="eyeIcon" id="toggleEye" onclick="togglePassword()">
                 </div>
                 <div class="mt-4">
                     <label class="switch">
                         <input type="checkbox">
                         <span class="slider round"></span>
                     </label>
-                    <span>Remember me</span>
-                    <span class="text-primary" style="float:right;">Forgot password?</span>
+                    <span id="remember">Remember me</span>
+                    <a id="forgotButton" style="float:right; text-decoration:none;" href="#">Forgot password?</a>
                 </div>
-                <button type="submit" class="btn btn-primary w-100 mt-3">Sign in</button>
+                <button id="submitButton" type="submit" class="btn w-100 mt-3 mb-2">Sign in</button>
                 <hr>
                 <div class="text-center">
-                    <span>Dont have account?</span><a class="ms-3" style="text-decoration:none;" href="#">Sign up now</a>
+                    <span>Don't have account?</span><a class="ms-3" id="signupButton" style="text-decoration:none;" href="#">Sign up now</a>
+                </div>
             </form>
         </div>
     </div>
 
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('toggleEye');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.src = 'images/hidden.png';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.src = 'images/eye.png';
+            }
+        }
+    </script>
 
 </body>
 
