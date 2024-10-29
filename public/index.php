@@ -215,7 +215,9 @@
         .intro {
             display: none;
         }
-
+        #left-pic {
+            top: -80px;
+        }
         .form-container {
             width: 400px;
         }
@@ -243,7 +245,7 @@
 
     @media only screen and (min-width: 1440px) and (max-width: 1780px) {
         #left-pic {
-            top: 5%;
+            top: -80px;
         }
 
         .intro {
@@ -267,7 +269,9 @@
             font-weight: 700;
 
         }
-
+        #left-pic {
+            top: -80px;
+        }
         .form-container {
             width: 500px;
         }
