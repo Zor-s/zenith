@@ -78,15 +78,15 @@
             <ul class="nav flex-column" style="margin-top: 80px;">
                 <li class="nav-item d-flex justify-content-start px-3" style="background-color: var(--primary); border-radius: 10px;">
                     <img src="images/homebuttonlight.svg">
-                    <a class="nav-link text-light" href="#">Home</a>
+                    <a class="nav-link text-light" href="home.php">Home</a>
                 </li>
                 <li class="nav-item d-flex justify-content-start px-3">
                 <img src="images/taskbutton.svg">
-                    <a class="nav-link text-dark" href="#">Tasks</a>
+                    <a class="nav-link text-dark" href="tasks.php">Tasks</a>
                 </li>
                 <li class="nav-item d-flex justify-content-start px-3">
                 <img src="images/settingsbutton.svg">
-                    <a class="nav-link text-dark" href="#">Settings</a>
+                    <a class="nav-link text-dark" href="settings.php">Settings</a>
                 </li>
 
             </ul>

@@ -36,11 +36,9 @@
             /* margin-right: auto; */
         }
 
-        .zenith-div-scrollable {
-            width: 100%;
-            height: 320px;
-            padding: 10px;
-            overflow-y: auto;
+
+        .table {
+            --bs-table-bg: transparent !important;
         }
     </style>
 </head>
@@ -78,15 +76,15 @@
             <ul class="nav flex-column" style="margin-top: 80px;">
                 <li class="nav-item d-flex justify-content-start px-3">
                     <img src="images/homebutton.svg">
-                    <a class="nav-link text-dark" href="#">Home</a>
+                    <a class="nav-link text-dark" href="home.php">Home</a>
                 </li>
                 <li class="nav-item d-flex justify-content-start px-3" style="background-color: var(--primary); border-radius: 10px;">
                     <img src="images/taskbuttonlight.svg">
-                    <a class="nav-link text-light" href="#">Tasks</a>
+                    <a class="nav-link text-light" href="tasks.php">Tasks</a>
                 </li>
                 <li class="nav-item d-flex justify-content-start px-3">
                     <img src="images/settingsbutton.svg">
-                    <a class="nav-link text-dark" href="#">Settings</a>
+                    <a class="nav-link text-dark" href="settings.php">Settings</a>
                 </li>
 
             </ul>
@@ -103,6 +101,79 @@
                 <!-- div -->
                 <div style="height: 450px; width: 1035px; background-color: var(--div); border-radius: 20px; margin-right: 30px; padding: 20px;">
 
+
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr class="text-dark">
+                                <th scope="col">Tasks</th>
+                                <th scope="col">Priority</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Due</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sample row 1 -->
+                            <tr>
+                                <td>Complete Project Report</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center mb-2" style="width: 45px; height: 35px; background-color: #ffdfdf; border-radius: 5px;">
+                                        <p style="margin: 0px; padding: 0px; color: #ff0000;">High</p>
+                                    </div>
+                                </td>
+                                <td>2024-11-01</td>
+                                <td>2024-11-05</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary me-1">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </td>
+
+                            <!-- Sample row 2 -->
+                            <tr>
+                                <td>Complete Project Report</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center mb-2" style="width: 70px; height: 35px; background-color: #ffffc3; border-radius: 5px;">
+                                        <p style="margin: 0px; padding: 0px; color: #aaaa00;">Medium</p>
+                                    </div>
+                                </td>
+                                <td>2024-11-01</td>
+                                <td>2024-11-05</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary me-1">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </td>
+
+                            <!-- Sample row 3 -->
+                            <tr>
+                                <td>Complete Project Report</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center mb-2" style="width: 43px; height: 35px; background-color: #f9eee3; border-radius: 5px;">
+                                        <p style="margin: 0px; padding: 0px; color: #d58d49;">Low</p>
+                                    </div>
+                                </td>
+                                <td>2024-11-01</td>
+                                <td>2024-11-05</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary me-1">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
 
