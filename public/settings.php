@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <link rel="stylesheet" href="css/globals.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/globals.css">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
         * {
 
             font-family: "Inter", sans-serif;
+            color: #0d062d;
 
         }
 
@@ -35,9 +37,6 @@
             margin-left: 250px;
             /* margin-right: auto; */
         }
-
-
-
     </style>
 </head>
 
@@ -69,49 +68,55 @@
 
 
     <!-- sidebar -->
-    <div class="d-flex">
-        <nav id="sidebar" class="flex-column vh-100 p-3 " style="width: 200px; background-color: rgba(0, 0, 0, 0); border-right: 2px solid #dbdbdb; z-index: 29;">
-            <ul class="nav flex-column" style="margin-top: 80px;">
-                <li class="nav-item d-flex justify-content-start px-3">
-                    <img src="images/homebutton.svg">
-                    <a class="nav-link text-dark" href="home.php">Home</a>
-                </li>
-                <li class="nav-item d-flex justify-content-start px-3">
-                    <img src="images/taskbutton.svg">
-                    <a class="nav-link text-dark" href="tasks.php">Tasks</a>
-                </li>
-                <li class="nav-item d-flex justify-content-start px-3" style="background-color: var(--primary); border-radius: 10px;">
-                    <img src="images/settingsbuttonlight.svg">
-                    <a class="nav-link text-light" href="settings.php">Settings</a>
-                </li>
+    <nav id="sidebar" class="flex-column vh-100 p-3 d-flex justify-content-between" style="width: 200px; background-color: rgba(0, 0, 0, 0); border-right: 2px solid #dbdbdb; z-index: 29;">
+        <ul class="nav flex-column" style="margin-top: 80px;">
+            <li class="nav-item d-flex justify-content-start px-3">
+                <img src="images/homebutton.svg">
+                <a class="nav-link text-dark" href="home.php">Home</a>
+            </li>
+            <li class="nav-item d-flex justify-content-start px-3">
+                <img src="images/taskbutton.svg">
+                <a class="nav-link text-dark" href="tasks.php">Tasks</a>
+            </li>
+            <li class="nav-item d-flex justify-content-start px-3" style="background-color: var(--primary); border-radius: 10px;">
+                <img src="images/settingsbuttonlight.svg">
+                <a class="nav-link text-light" href="settings.php">Settings</a>
+            </li>
+        </ul>
 
-            </ul>
-        </nav>
 
-        <!-- contents -->
+        <div>
+            <hr>
+            <div class="d-flex justify-content-center align-items-center">
+                <img style="height: 34px; width: 34px;" src="images/logoutbutton.png" alt="">
+                <p style="margin: 5px; padding: 0px;">LOG OUT</p>
+            </div>
+        </div>
+    </nav>
 
-        <div class="content mt-5">
+    <!-- contents -->
 
-            <h1>Settings</h1>
+    <div class="content mt-5">
 
-            <div class="mt-5">
+        <h1>Settings</h1>
 
-                <!-- div -->
-                <div style="height: 450px; width: 1035px; border-radius: 20px; margin-right: 30px;">
-                    <div class="d-flex justify-content-evenly align-items-center" style="width: 274px; height: 74px; background-color: #0d062d; border-radius: 20px;">
-                        <p class="text-white" style="margin: 0px; padding: 0px; font-size: x-large;">Dark Mode</p>
+        <div class="mt-5">
 
-                        <div class="d-flex justify-content-start align-items-center" style="background-color: #ffffff; width: 87px; height: 31px; border-radius: 20px; border-radius: 20px; ">
-                            <div style="width: 27px; height: 27px; background-color: #0d062d; border-radius: 50%; margin-left: 3px;"></div>
-                        </div>   
+            <!-- div -->
+            <div style="height: 450px; width: 1035px; border-radius: 20px; margin-right: 30px;">
+                <div class="d-flex justify-content-evenly align-items-center" style="width: 274px; height: 74px; background-color: #0d062d; border-radius: 20px;">
+                    <p class="text-white" style="margin: 0px; padding: 0px; font-size: x-large;">Dark Mode</p>
+
+                    <div class="d-flex justify-content-start align-items-center" style="background-color: #ffffff; width: 70px; height: 31px; border-radius: 20px; border-radius: 20px;">
+                        <div style="width: 27px; height: 27px; background-color: #0d062d; border-radius: 50%; margin-left: 3px;"></div>
                     </div>
-                    <p class="mt-3" style="margin: 0px; padding: 0px; font-size: xx-large; font-weight: 500;">Clear Data</p>
-
                 </div>
-
-
+                <p class="mt-3" style="margin: 0px; padding: 0px; font-size: xx-large; font-weight: 500;">Clear Data</p>
 
             </div>
+
+
+
         </div>
     </div>
 
