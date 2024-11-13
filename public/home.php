@@ -120,7 +120,7 @@
                             <p style="margin: 0px; padding: 0px;">3</p>
                         </div>
                     </div>
-                    <img src="images/addtask.svg" style="width: 24px; height: auto;">
+                    <img src="images/addtask.svg" style="width: 30px; height: auto;">
                 </div>
                 <div style="width: 100%; height: 5px; background-color: #5030e5; margin-block: 30px;"></div>
 
