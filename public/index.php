@@ -311,7 +311,7 @@
                 <button id="submitButton" type="submit" class="btn w-100 mt-3 mb-2">Sign in</button>
                 <hr>
                 <div class="text-center">
-                    <span>Don't have account?</span><a class="ms-3" id="signupButton" style="text-decoration:none;" href="#">Sign up now</a>
+                    <span>Don't have account?</span><a class="ms-3" id="signupButton" style="text-decoration:none;" href="./signup.php">Sign up now</a>
                 </div>
             </form>
         </div>

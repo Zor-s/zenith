@@ -130,6 +130,9 @@
 
             <button type="submit">Sign Up</button>
         </form>
+        <div class="text-center" style="margin-top: 10px;">
+            <span>Already have an account? </span><a class="ms-3" id="signupButton" style="text-decoration:none;" href="./index.php">Sign in now</a>
+        </div>
     </div>
 
     <script>

@@ -15,7 +15,7 @@ $stmt->bindParam(':username', $username, PDO::PARAM_STR);
 $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
 
 if ($stmt->execute()) {
-    echo "User added successfully!";
+    header("Location: ../index.php");
 } else {
     echo "Error adding user.";
 }
