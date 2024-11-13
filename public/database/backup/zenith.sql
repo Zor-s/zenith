@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2024 at 10:37 PM
+-- Generation Time: Nov 13, 2024 at 10:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,8 +81,8 @@ CREATE TABLE `tasks` (
   `task_name` varchar(100) NOT NULL,
   `task_description` text DEFAULT NULL,
   `priority` varchar(10) DEFAULT NULL,
-  `date_start` date DEFAULT NULL,
-  `date_due` date DEFAULT NULL
+  `date_start` datetime DEFAULT NULL,
+  `date_due` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
