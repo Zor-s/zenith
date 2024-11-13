@@ -288,16 +288,16 @@
                 helps users manage tasks, set priorities, and monitor their progress in real time. </p>
         </div>
         <div class="form-container">
-            <form>
+            <form action="./php/login.php" method="post">
                 <div id="logo" class="pb-4"><img src="images/ZENITHfd.png" width="200px" alt="Zenith Logo" draggable="false"></div>
                 <div id="greeting"><strong>Nice to see you again!</strong></div>
                 <div class="form-group mt-3">
-                    <label for="emailOrPhone" class="ps-3" id="loginLabel">Login</label>
-                    <input type="text" class="form-control" id="emailOrPhone" name="emailOrPhone" placeholder="Email or Phone Number">
+                    <label for="username" class="ps-3" id="loginLabel">Login</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
                 </div>
                 <div class="form-group mt-3">
                     <label for="password" class="ps-3" id="passwordLabel">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter Password">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
                     <img src="images/eye.png" alt="Show" class="eyeIcon" id="toggleEye" onclick="togglePassword()">
                 </div>
                 <div class="mt-4">
