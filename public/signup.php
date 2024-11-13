@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,13 +20,13 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: var(--div); 
+            background-color: var(--div);
             padding: 10px;
         }
 
         .signup-container {
             background-color: var(--div);
-            padding: 40px 20px; 
+            padding: 40px 20px;
             border: 1px solid black;
             width: 100%;
             max-width: 400px;
@@ -47,40 +48,40 @@
         label {
             text-align: left;
             margin-bottom: 5px;
-            margin-top: 20px; 
+            margin-top: 20px;
             font-size: 14px;
             color: var(--text);
         }
 
         .password-container {
-            position: relative; 
-            width: 100%; 
-            margin-bottom: 15px; 
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
         }
 
         input {
             padding: 10px;
-            padding-right: 40px; 
+            padding-right: 40px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 14px;
             width: 100%;
-            height: 40px; 
+            height: 40px;
         }
 
         .eye-icon {
             position: absolute;
             top: 50%;
-            right: 10px; 
+            right: 10px;
             transform: translateY(-50%);
             cursor: pointer;
-            width: 20px; 
-            height: 20px; 
+            width: 20px;
+            height: 20px;
         }
 
         button {
             padding: 10px;
-            background-color: var(--primary); 
+            background-color: var(--primary);
             color: white;
             border: none;
             border-radius: 10px;
@@ -90,12 +91,12 @@
         }
 
         button:hover {
-            background-color: var(--primary); 
+            background-color: var(--primary);
         }
 
         .logo-signup {
             max-width: 150px;
-            margin-bottom: 30px; 
+            margin-bottom: 30px;
         }
 
         @media (max-width: 768px) {
@@ -107,12 +108,13 @@
         }
     </style>
 </head>
+
 <body>
     <div class="signup-container">
         <img src="images/ZENITHfd.png" alt="Zenith logo" class="logo-signup">
-        <form action="#" method="post">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter email" required>
+        <form action="./php/signup.php" method="post" onsubmit="return checkPasswordsMatch()">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter username" required>
 
             <label for="password">Password</label>
             <div class="password-container">
@@ -136,10 +138,10 @@
             const passwordIcon = document.getElementById('toggle-password');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                passwordIcon.src = 'images/hidden.png'; 
+                passwordIcon.src = 'images/hidden.png';
             } else {
                 passwordInput.type = 'password';
-                passwordIcon.src = 'images/eye.png'; 
+                passwordIcon.src = 'images/eye.png';
             }
         }
 
@@ -148,12 +150,25 @@
             const confirmPasswordIcon = document.getElementById('toggle-confirm-password');
             if (confirmPasswordInput.type === 'password') {
                 confirmPasswordInput.type = 'text';
-                confirmPasswordIcon.src = 'images/hidden.png'; 
+                confirmPasswordIcon.src = 'images/hidden.png';
             } else {
                 confirmPasswordInput.type = 'password';
-                confirmPasswordIcon.src = 'images/eye.png'; 
+                confirmPasswordIcon.src = 'images/eye.png';
             }
+        }
+
+
+
+        function checkPasswordsMatch() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm-password").value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
         }
     </script>
 </body>
+
 </html>
