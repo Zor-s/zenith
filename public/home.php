@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,6 +49,8 @@
             padding: 10px;
             overflow-y: auto;
         }
+
+      .dropdown-toggle::after { display: none !important;}
     </style>
 </head>
 
@@ -120,45 +126,17 @@
                             <p style="margin: 0px; padding: 0px;">3</p>
                         </div>
                     </div>
-                    <img src="images/addtask.svg" style="width: 30px; height: auto;">
+                    <button style="margin: 0px; padding: 0px; border: none;" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                        <img src="images/addtask.svg" style="width: 30px; height: auto;"
+                            onmouseover="this.style.filter='brightness(50%)'" onmouseout="this.style.filter='brightness(100%)'">
+                    </button>
                 </div>
                 <div style="width: 100%; height: 5px; background-color: #5030e5; margin-block: 30px;"></div>
 
                 <div class="zenith-div-scrollable">
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 45px; height: 35px; background-color: #ffdfdf; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #ff0000;">High</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 70px; height: 35px; background-color: #ffffc3; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #aaaa00;">Medium</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 43px; height: 35px; background-color: #f9eee3; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #d58d49;">Low</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <p style="color: red; margin: 0px; padding: 0px;">Overdue</p>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
+                    <?php require './php/load_task.php';
+
+                    ?>
                 </div>
             </div>
 
@@ -290,7 +268,93 @@
         </div>
     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Add task modal-->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="./php/add_task.php" method="post" id="taskForm">
+
+                        <!-- Hidden input for user ID -->
+                        <input type="hidden" name="users_id" value="<?php echo $_SESSION['users_id']; ?>">
+
+                        <div class="mb-3">
+                            <label for="task_name" class="form-label">Task Name</label>
+                            <input type="text" class="form-control" id="task_name" name="task_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="task_description" class="form-label">Task Description</label>
+                            <textarea class="form-control" id="task_description" name="task_description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="priority" class="form-label">Priority</label>
+                            <select class="form-select" id="priority" name="priority">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date_start" class="form-label">Start Date</label>
+                            <input type="datetime-local" class="form-control" id="date_start" name="date_start">
+                        </div>
+                        <div class="mb-3">
+                            <label for="date_due" class="form-label">Due Date</label>
+                            <input type="datetime-local" class="form-control" id="date_due" name="date_due">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="saveTaskButton" form="taskForm">Save Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function markAsDone(taskId) {
+            fetch('./php/mark_done.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'task_id=' + taskId
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'success') {
+                        // document.getElementById('task-' + taskId).style.opacity = '0.5'; // Optional: visually mark as done
+                        window.location.href = './home.php';
+                    } else {
+                        alert('Failed to mark as done.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
 </body>
 
 </html>
