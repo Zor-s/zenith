@@ -16,14 +16,7 @@ $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $dueDate = $row['date_due'];
-        $overdueMessage = "";
-
-        if ($today < $dueDate) {
-            $overdueMessage = "";  
-        } else {
-            $overdueMessage = 'Overdue';
-        }
+        $overdueMessage = "Due_check";
 
         $priority = htmlspecialchars($row['priority']);
 
@@ -40,32 +33,32 @@ if ($stmt->rowCount() > 0) {
                                 <p style="margin: 0px; padding: 0px; color: #d58d49;">Low</p>
                               </div>';
         }
-        
 
-        
+
+
 
         echo '
-        <div id="task-'.$row['tasks_id'].'" class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
+        <div id="today-task-' . $row['tasks_id'] . '" class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
             <div class="d-flex justify-content-between">
-                '.$priorityStyle.'        
+                ' . $priorityStyle . '        
 
   <div class="dropdown">
     <button class="dropdown-toggle" style="font-weight: 900; border: none; background: none; padding-right: 0;" data-bs-toggle="dropdown" aria-expanded="false">
         ...
     </button>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#" onclick="markAsDone('.$row['tasks_id'].')">Mark as Done</a></li>
+        <li><a class="dropdown-item" href="#" onclick="markAsDone(' . $row['tasks_id'] . ')">Mark as Done</a></li>
     </ul>
-</div>
+    </div>
 
 
                 </div>
-           '.htmlspecialchars($row['date_due']).'
-            <p style="color: red; margin: 0px; padding: 0px;">'.$overdueMessage.'</p>
-            <h3 style="font-weight: bold;   margin: 0px;">'.htmlspecialchars($row['task_name']).'</h3>
-            <p style="color: #787486;">'.htmlspecialchars($row['task_description']).'</p>
+           
+            <p id="date-' . $row['tasks_id'] .'" style="margin: 0px; padding: 0px;">' . date("M d, Y h:i A", strtotime($row['date_due'])) . '</p>
+            <p id="due-check-' . $row['tasks_id'] .'" style="color: red; margin: 0px; padding: 0px;">' . $overdueMessage . '</p>
+            <h3 style="font-weight: bold;   margin: 0px;">' . htmlspecialchars($row['task_name']) . '</h3>
+            <p style="color: #787486;">' . htmlspecialchars($row['task_description']) . '</p>
         </div>';
-
     }
 } else {
     echo "No tasks are due today.";

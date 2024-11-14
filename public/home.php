@@ -50,7 +50,9 @@ session_start();
             overflow-y: auto;
         }
 
-      .dropdown-toggle::after { display: none !important;}
+        .dropdown-toggle::after {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -123,7 +125,7 @@ session_start();
                         <div style="width: 10px; height: 10px; background-color: #5030e5; border-radius: 50%; margin-right: 10px;"></div>
                         <h2 style="margin: 0px; padding: 0px;">Today’s Tasks</h2>
                         <div class="d-flex justify-content-center align-items-center" style="width: 25px; height: 25px; background-color: #e0e0e0; border-radius: 50%; margin-left: 5px;">
-                            <p style="margin: 0px; padding: 0px;">3</p>
+                            <p id="today-task" style="margin: 0px; padding: 0px;"></p>
                         </div>
                     </div>
                     <button style="margin: 0px; padding: 0px; border: none;" data-bs-toggle="modal" data-bs-target="#addTaskModal">
@@ -134,7 +136,7 @@ session_start();
                 <div style="width: 100%; height: 5px; background-color: #5030e5; margin-block: 30px;"></div>
 
                 <div class="zenith-div-scrollable">
-                    <?php require './php/load_task.php';
+                    <?php require './php/load_todays_task.php';
 
                     ?>
                 </div>
@@ -161,47 +163,18 @@ session_start();
                     <div style="width: 10px; height: 10px; background-color: #ffa500; border-radius: 50%; margin-right: 10px;"></div>
                     <h2 style="margin: 0px; padding: 0px;">Upcoming Tasks</h2>
                     <div class="d-flex justify-content-center align-items-center" style="width: 25px; height: 25px; background-color: #e0e0e0; border-radius: 50%; margin-left: 5px;">
-                        <p style="margin: 0px; padding: 0px;">3</p>
+                        <p id="upcoming-task" style="margin: 0px; padding: 0px;"></p>
                     </div>
                 </div>
 
                 <div style="width: 100%; height: 5px; background-color: #ffa500; margin-block: 30px;"></div>
 
                 <div class="zenith-div-scrollable">
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 45px; height: 35px; background-color: #ffdfdf; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #ff0000;">High</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 70px; height: 35px; background-color: #ffffc3; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #aaaa00;">Medium</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 43px; height: 35px; background-color: #f9eee3; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #d58d49;">Low</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <p style="color: red; margin: 0px; padding: 0px;">Overdue</p>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
+
+                    <?php require './php/load_upcoming_task.php';
+
+                    ?>
+
                 </div>
             </div>
 
@@ -223,46 +196,16 @@ session_start();
                     <div style="width: 10px; height: 10px; background-color: #8bc48a; border-radius: 50%; margin-right: 10px;"></div>
                     <h2 style="margin: 0px; padding: 0px;">Done</h2>
                     <div class="d-flex justify-content-center align-items-center" style="width: 25px; height: 25px; background-color: #e0e0e0; border-radius: 50%; margin-left: 5px;">
-                        <p style="margin: 0px; padding: 0px;">3</p>
+                        <p id="done-task" style="margin: 0px; padding: 0px;"></p>
                     </div>
                 </div>
                 <div style="width: 100%; height: 5px; background-color: #8bc48a; margin-block: 30px;"></div>
 
                 <div class="zenith-div-scrollable">
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 45px; height: 35px; background-color: #ffdfdf; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #ff0000;">High</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 70px; height: 35px; background-color: #ffffc3; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #aaaa00;">Medium</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
-                    <!-- sample div -->
-                    <div class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center mb-2" style="width: 43px; height: 35px; background-color: #f9eee3; border-radius: 5px;">
-                                <p style="margin: 0px; padding: 0px; color: #d58d49;">Low</p>
-                            </div>
-                            <p style="font-weight: 900;">...</p>
-                        </div>
-                        <p style="color: red; margin: 0px; padding: 0px;">Overdue</p>
-                        <h3 style="font-weight: bold;   margin: 0px;">Brainstorming</h3>
-                        <p style="color: #787486;">Brainstorming brings team members' diverse experience into play. </p>
-                    </div>
+
+                    <?php require './php/load_done_task.php';
+
+                    ?>
                 </div>
             </div>
         </div>
@@ -345,7 +288,6 @@ session_start();
                 .then(response => response.text())
                 .then(data => {
                     if (data === 'success') {
-                        // document.getElementById('task-' + taskId).style.opacity = '0.5'; // Optional: visually mark as done
                         window.location.href = './home.php';
                     } else {
                         alert('Failed to mark as done.');
@@ -353,6 +295,82 @@ session_start();
                 })
                 .catch(error => console.error('Error:', error));
         }
+
+
+
+        // div checker
+        window.addEventListener('load', function() {
+            const taskDivs = document.querySelectorAll('[id^="done-task-"]');
+            const taskCount = taskDivs.length;
+
+            const taskP = document.getElementById('done-task');
+            if (taskP) {
+                taskP.textContent = `${taskCount}`;
+            }
+        });
+
+
+        window.addEventListener('load', function() {
+            const taskDivs = document.querySelectorAll('[id^="today-task-"]');
+            const taskCount = taskDivs.length;
+
+            const taskP = document.getElementById('today-task');
+            if (taskP) {
+                taskP.textContent = `${taskCount}`;
+            }
+        });
+
+        window.addEventListener('load', function() {
+            const taskDivs = document.querySelectorAll('[id^="upcoming-task-"]');
+            const taskCount = taskDivs.length;
+
+            const taskP = document.getElementById('upcoming-task');
+            if (taskP) {
+                taskP.textContent = `${taskCount}`;
+            }
+        });
+
+
+
+
+
+
+
+        // overdue checker
+        window.onload = function() {
+            // Get the current date and time
+            const currentDate = new Date();
+
+            // Loop through all p tags with an id of "date-i"
+            const dateElements = document.querySelectorAll('[id^="date-"]');
+
+            dateElements.forEach(function(dateElement) {
+                // Get the index from the id of the p tag (e.g., "date-1", "date-2", etc.)
+                const idParts = dateElement.id.split('-');
+                const index = idParts[1];
+
+                // Extract the date and time string from the p tag content
+                const dateString = dateElement.innerText.trim();
+
+                // Convert the date string to a Date object
+                const date = new Date(dateString);
+
+                // Compare the date with the current date
+                if (date < currentDate) {
+                    // Modify the corresponding "due-check-i" element to "Overdue"
+                    const dueCheckElement = document.getElementById('due-check-' + index);
+                    if (dueCheckElement) {
+                        dueCheckElement.innerText = "Overdue";
+                    }
+                } else {
+                    // Otherwise, clear the "due-check-i" element
+                    const dueCheckElement = document.getElementById('due-check-' + index);
+                    if (dueCheckElement) {
+                        dueCheckElement.innerText = "";
+                    }
+                }
+            });
+        };
     </script>
 
 </body>
