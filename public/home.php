@@ -103,10 +103,27 @@ session_start();
 
         <div>
             <hr>
+            <?php
+
+// Check if the logout button is clicked
+if (isset($_POST['logout'])) {
+    // Destroy the session to log the user out
+    session_unset();
+    session_destroy();
+    // Redirect to the login page (or any other page)
+    header("Location: index.php");
+    exit();
+}
+?>
             <div class="d-flex justify-content-center align-items-center">
-                <img style="height: 34px; width: 34px;" src="images/logoutbutton.png" alt="">
-                <p style="margin: 5px; padding: 0px;">LOG OUT</p>
+                <form method="POST">
+                    <button type="submit" name="logout" style="background: none; border: none; cursor: pointer; display: flex; align-items: center;">
+                        <img style="height: 34px; width: 34px; margin-right: 5px;" src="images/logoutbutton.png" alt="">
+                        <p style="margin: 0; padding: 0;">LOG OUT</p>
+                    </button>
+                </form>
             </div>
+
         </div>
     </nav>
 

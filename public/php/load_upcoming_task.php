@@ -7,11 +7,13 @@ $database = new Database();
 $db = $database->connect();
 
 $today = date('Y-m-d');
-$query = "SELECT * FROM tasks WHERE DATE(date_due) > :today AND is_finished = 0 ORDER BY date_due ASC";
+$query = "SELECT * FROM tasks WHERE DATE(date_due) > :today AND is_finished = 0 AND users_id = :users_id ORDER BY date_due ASC";
 
 $stmt = $db->prepare($query);
 $stmt->bindParam(':today', $today);
+$stmt->bindParam(':users_id', $_SESSION['users_id']);
 $stmt->execute();
+
 
 
 if ($stmt->rowCount() > 0) {

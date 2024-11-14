@@ -6,10 +6,12 @@ require_once './database/database.php';
 $database = new Database();
 $db = $database->connect();
 
-$query = "SELECT * FROM tasks WHERE is_finished = 1 ORDER BY date_due ASC";
+$query = "SELECT * FROM tasks WHERE is_finished = 1 AND users_id = :users_id ORDER BY date_due ASC";
 
 $stmt = $db->prepare($query);
+$stmt->bindParam(':users_id', $_SESSION['users_id'], PDO::PARAM_INT);
 $stmt->execute();
+
 
 
 
