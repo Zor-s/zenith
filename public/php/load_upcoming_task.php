@@ -18,7 +18,7 @@ $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $overdueMessage = "Due_check";
+        $overdueMessage = ($row['is_overdue'] == 1) ? "Overdue" : "";
 
         $priority = htmlspecialchars($row['priority']);
 

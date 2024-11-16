@@ -7,7 +7,26 @@ $database = new Database();
 $db = $database->connect();
 
 $today = date('Y-m-d');
-$userId = $_SESSION['users_id']; // Assuming the user's ID is stored in the session
+$userId = $_SESSION['users_id'];
+
+
+// Update overdue tasks
+$today_time = date('Y-m-d H:i:s');
+// echo $today_time;
+
+$updateQuery = "UPDATE tasks 
+                SET is_overdue = 1 
+                WHERE date_due < :today_time 
+                AND is_finished = 0 
+                AND users_id = :user_id";
+$updateStmt = $db->prepare($updateQuery);
+$updateStmt->bindParam(':today_time', $today_time);
+$updateStmt->bindParam(':user_id', $userId);
+$updateStmt->execute();
+
+
+
+
 
 $query = "SELECT * FROM tasks 
           WHERE DATE(date_due) <= :today 
@@ -24,7 +43,8 @@ $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $overdueMessage = "Due_check";
+        $overdueMessage = ($row['is_overdue'] == 1) ? "Overdue" : "";
+
 
         $priority = htmlspecialchars($row['priority']);
 

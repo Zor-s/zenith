@@ -17,7 +17,7 @@ $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $overdueMessage = "Due_check";
+        $overdueMessage = ($row['is_overdue'] == 1) ? "Overdue" : "";
 
         $priority = htmlspecialchars($row['priority']);
 
@@ -43,14 +43,7 @@ if ($stmt->rowCount() > 0) {
             <div class="d-flex justify-content-between">
                 ' . $priorityStyle . '        
 
-  <div class="dropdown">
-    <button class="dropdown-toggle" style="font-weight: 900; border: none; background: none; padding-right: 0;" data-bs-toggle="dropdown" aria-expanded="false">
-        ...
-    </button>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#" onclick="markAsDone(' . $row['tasks_id'] . ')">Mark as Done</a></li>
-    </ul>
-    </div>
+
 
 
                 </div>

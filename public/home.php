@@ -1,5 +1,7 @@
 <?php
 session_start();
+date_default_timezone_set('Asia/Manila');
+
 ?>
 
 <!DOCTYPE html>
@@ -357,33 +359,33 @@ session_start();
 
 
 
-        // overdue checker
-        window.onload = function() {
-            const currentDate = new Date();
+        // // overdue checker
+        // window.onload = function() {
+        //     const currentDate = new Date();
 
-            const dateElements = document.querySelectorAll('[id^="date-"]');
+        //     const dateElements = document.querySelectorAll('[id^="date-"]');
 
-            dateElements.forEach(function(dateElement) {
-                const idParts = dateElement.id.split('-');
-                const index = idParts[1];
+        //     dateElements.forEach(function(dateElement) {
+        //         const idParts = dateElement.id.split('-');
+        //         const index = idParts[1];
 
-                const dateString = dateElement.innerText.trim();
+        //         const dateString = dateElement.innerText.trim();
 
-                const date = new Date(dateString);
+        //         const date = new Date(dateString);
 
-                if (date < currentDate) {
-                    const dueCheckElement = document.getElementById('due-check-' + index);
-                    if (dueCheckElement) {
-                        dueCheckElement.innerText = "Overdue";
-                    }
-                } else {
-                    const dueCheckElement = document.getElementById('due-check-' + index);
-                    if (dueCheckElement) {
-                        dueCheckElement.innerText = "";
-                    }
-                }
-            });
-        };
+        //         if (date < currentDate) {
+        //             const dueCheckElement = document.getElementById('due-check-' + index);
+        //             if (dueCheckElement) {
+        //                 dueCheckElement.innerText = "Overdue";
+        //             }
+        //         } else {
+        //             const dueCheckElement = document.getElementById('due-check-' + index);
+        //             if (dueCheckElement) {
+        //                 dueCheckElement.innerText = "";
+        //             }
+        //         }
+        //     });
+        // };
 
 
 
