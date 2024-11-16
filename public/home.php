@@ -105,16 +105,14 @@ session_start();
             <hr>
             <?php
 
-// Check if the logout button is clicked
-if (isset($_POST['logout'])) {
-    // Destroy the session to log the user out
-    session_unset();
-    session_destroy();
-    // Redirect to the login page (or any other page)
-    header("Location: index.php");
-    exit();
-}
-?>
+            // Check if the logout button is clicked
+            if (isset($_POST['logout'])) {
+                session_unset();
+                session_destroy();
+                header("Location: index.php");
+                exit();
+            }
+            ?>
             <div class="d-flex justify-content-center align-items-center">
                 <form method="POST">
                     <button type="submit" name="logout" style="background: none; border: none; cursor: pointer; display: flex; align-items: center;">
@@ -274,10 +272,16 @@ if (isset($_POST['logout'])) {
                                 <option value="low">Low</option>
                             </select>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="date_start" class="form-label">Start Date</label>
                             <input type="datetime-local" class="form-control" id="date_start" name="date_start">
+                        </div> -->
+
+
+                        <div class="mb-3" style="display: none;">
+                            <input type="hidden" id="date_start" name="date_start" value="">
                         </div>
+
                         <div class="mb-3">
                             <label for="date_due" class="form-label">Due Date</label>
                             <input type="datetime-local" class="form-control" id="date_due" name="date_due">
@@ -355,32 +359,24 @@ if (isset($_POST['logout'])) {
 
         // overdue checker
         window.onload = function() {
-            // Get the current date and time
             const currentDate = new Date();
 
-            // Loop through all p tags with an id of "date-i"
             const dateElements = document.querySelectorAll('[id^="date-"]');
 
             dateElements.forEach(function(dateElement) {
-                // Get the index from the id of the p tag (e.g., "date-1", "date-2", etc.)
                 const idParts = dateElement.id.split('-');
                 const index = idParts[1];
 
-                // Extract the date and time string from the p tag content
                 const dateString = dateElement.innerText.trim();
 
-                // Convert the date string to a Date object
                 const date = new Date(dateString);
 
-                // Compare the date with the current date
                 if (date < currentDate) {
-                    // Modify the corresponding "due-check-i" element to "Overdue"
                     const dueCheckElement = document.getElementById('due-check-' + index);
                     if (dueCheckElement) {
                         dueCheckElement.innerText = "Overdue";
                     }
                 } else {
-                    // Otherwise, clear the "due-check-i" element
                     const dueCheckElement = document.getElementById('due-check-' + index);
                     if (dueCheckElement) {
                         dueCheckElement.innerText = "";
@@ -388,6 +384,13 @@ if (isset($_POST['logout'])) {
                 }
             });
         };
+
+
+
+
+        const now = new Date();
+        const formattedDate = now.toISOString().slice(0, 16); 
+        document.getElementById('date_start').value = formattedDate;
     </script>
 
 </body>
