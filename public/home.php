@@ -2,6 +2,13 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
+require_once './database/database.php';
+
+$users_id = $_SESSION['users_id'];
+
+$db = new Database();
+$conn = $db->connect();
+
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +80,31 @@ date_default_timezone_set('Asia/Manila');
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        Welcome, Zors!
+                        Welcome,
+
+
+                        <?php
+                        $users_id = $_SESSION['users_id'];
+
+                        $db = new Database();
+                        $conn = $db->connect();
+
+                        try {
+                            $query = "SELECT username FROM users WHERE users_id = :users_id";
+                            $stmt = $conn->prepare($query);
+                            $stmt->bindParam(':users_id', $users_id, PDO::PARAM_INT);
+                            $stmt->execute();
+
+                            if ($stmt->rowCount() > 0) {
+                                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                echo htmlspecialchars($row['username']);
+                            } else {
+                                echo "User not found.";
+                            }
+                        } catch (PDOException $e) {
+                            echo "Error: " . $e->getMessage();
+                        }
+                        ?>!
                     </li>
 
                 </ul>
@@ -391,7 +422,7 @@ date_default_timezone_set('Asia/Manila');
 
 
         const now = new Date();
-        const formattedDate = now.toISOString().slice(0, 16); 
+        const formattedDate = now.toISOString().slice(0, 16);
         document.getElementById('date_start').value = formattedDate;
     </script>
 
