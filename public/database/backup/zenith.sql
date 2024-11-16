@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2024 at 10:58 AM
+-- Generation Time: Nov 16, 2024 at 08:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -27,7 +27,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_task` (IN `p_users_id` INT, IN `p_task_name` VARCHAR(100), IN `p_task_description` TEXT, IN `p_priority` VARCHAR(10), IN `p_date_start` DATE, IN `p_date_due` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_task` (IN `p_users_id` INT, IN `p_task_name` VARCHAR(100), IN `p_task_description` TEXT, IN `p_priority` VARCHAR(10), IN `p_date_start` DATETIME, IN `p_date_due` DATETIME)   BEGIN
     INSERT INTO tasks (
         users_id, 
         task_name, 
@@ -82,7 +82,8 @@ CREATE TABLE `tasks` (
   `task_description` text DEFAULT NULL,
   `priority` varchar(10) DEFAULT NULL,
   `date_start` datetime DEFAULT NULL,
-  `date_due` datetime DEFAULT NULL
+  `date_due` datetime DEFAULT NULL,
+  `is_finished` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
