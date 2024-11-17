@@ -1,3 +1,11 @@
+<?php
+require_once './database/database.php'; 
+session_start();
+$users_id = $_SESSION['users_id'];
+
+$db = new Database();
+$conn = $db->connect();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +63,27 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        Welcome, Zors!
+                        Welcome,
+
+
+                        <?php
+
+                        try {
+                            $query = "SELECT username FROM users WHERE users_id = :users_id";
+                            $stmt = $conn->prepare($query);
+                            $stmt->bindParam(':users_id', $users_id, PDO::PARAM_INT);
+                            $stmt->execute();
+
+                            if ($stmt->rowCount() > 0) {
+                                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                echo htmlspecialchars($row['username']);
+                            } else {
+                                echo "User not found.";
+                            }
+                        } catch (PDOException $e) {
+                            echo "Error: " . $e->getMessage();
+                        }
+                        ?>!
                     </li>
 
                 </ul>
@@ -87,10 +115,25 @@
 
         <div>
             <hr>
+            <?php
+
+            // Check if the logout button is clicked
+            if (isset($_POST['logout'])) {
+                session_unset();
+                session_destroy();
+                header("Location: index.php");
+                exit();
+            }
+            ?>
             <div class="d-flex justify-content-center align-items-center">
-                <img style="height: 34px; width: 34px;" src="images/logoutbutton.png" alt="">
-                <p style="margin: 5px; padding: 0px;">LOG OUT</p>
+                <form method="POST">
+                    <button type="submit" name="logout" style="background: none; border: none; cursor: pointer; display: flex; align-items: center;">
+                        <img style="height: 34px; width: 34px; margin-right: 5px;" src="images/logoutbutton.png" alt="">
+                        <p style="margin: 0; padding: 0;">LOG OUT</p>
+                    </button>
+                </form>
             </div>
+
         </div>
     </nav>
 
@@ -111,7 +154,9 @@
                         <div style="width: 27px; height: 27px; background-color: #0d062d; border-radius: 50%; margin-left: 3px;"></div>
                     </div>
                 </div>
-                <p class="mt-3" style="margin: 0px; padding: 0px; font-size: xx-large; font-weight: 500;">Clear Data</p>
+                <button style="background: none; border: none;" onclick="clearTasks()">
+                    <p class="mt-3" style="margin: 0px; padding: 0px; font-size: xx-large; font-weight: 500;">Clear Data</p>
+                </button>
 
             </div>
 
@@ -121,6 +166,19 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function clearTasks() {
+            fetch('./php/clear_tasks.php')
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = './home.php';
+                    } else {
+                        console.error("Something went wrong! 😫");
+                    }
+                })
+                .catch(error => console.error("Network error! 🤬", error));
+        }
+    </script>
 </body>
 
 </html>
