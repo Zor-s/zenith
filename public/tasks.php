@@ -81,7 +81,28 @@ $db = $database->connect();
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
-						Welcome, Zors!
+						Welcome,
+
+
+						<?php
+
+
+						try {
+							$query = "SELECT username FROM users WHERE users_id = :users_id";
+							$stmt = $db->prepare($query);
+							$stmt->bindParam(':users_id', $users_id, PDO::PARAM_INT);
+							$stmt->execute();
+
+							if ($stmt->rowCount() > 0) {
+								$row = $stmt->fetch(PDO::FETCH_ASSOC);
+								echo htmlspecialchars($row['username']);
+							} else {
+								echo "User not found.";
+							}
+						} catch (PDOException $e) {
+							echo "Error: " . $e->getMessage();
+						}
+						?>!
 					</li>
 
 				</ul>
@@ -205,7 +226,7 @@ $db = $database->connect();
 							} elseif ($row['is_finished'] == 1 && $row['is_overdue'] == 1) {
 								$status = "<p style='color: red;'>Done with Overdue</p>";
 							}
-							
+
 
 
 
@@ -244,8 +265,8 @@ $db = $database->connect();
 								<button class=\"btn btn-sm btn-primary me-1\" data-bs-toggle=\"modal\" data-bs-target=\"#editTaskModal\">
 									<i class=\"bi bi-pencil\"></i> Edit
 								</button>
-								<button class=\"btn btn-sm btn-danger\" data-bs-toggle=\"modal\" data-bs-target=\"#deleteTaskModal\">
-									<i class=\"bi bi-trash\"></i> Delete
+								<button class=\"btn btn-sm btn-success\" data-bs-toggle=\"modal\" data-bs-target=\"#markDoneModal\" data-task-id=\"" . $row['tasks_id'] . "\">
+									<i class=\"bi bi-trash\"></i> Done
 								</button>
 							</td>
           </tr>
@@ -326,10 +347,45 @@ $db = $database->connect();
 
 
 
+
+
+
+
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="markDoneModal" tabindex="-1" aria-labelledby="markDoneModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="markDoneModalLabel">Mark Task as Done</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Are you sure you want to mark this task as done?
+					<!-- Hidden Task ID Input -->
+					<input type="hidden" id="task_id" name="task_id" value="">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="markAsDone()">Mark as Done</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
+		// adjust sidebar height
 		window.addEventListener('resize', adjustSidebarHeight);
 		document.addEventListener('DOMContentLoaded', adjustSidebarHeight);
+
+
 
 		function adjustSidebarHeight() {
 			const bodyHeight = document.body.clientHeight;
@@ -337,6 +393,36 @@ $db = $database->connect();
 			if (sidebar) {
 				sidebar.style.height = bodyHeight + 'px';
 			}
+		}
+
+		var markDoneModal = document.getElementById('markDoneModal');
+		markDoneModal.addEventListener('show.bs.modal', function(event) {
+			var button = event.relatedTarget;
+			var taskId = button.getAttribute('data-task-id');
+			var taskIdInput = document.getElementById('task_id');
+			taskIdInput.value = taskId;
+		});
+
+		function markAsDone() {
+			var taskId = document.getElementById('task_id').value;
+
+			fetch('./php/mark_done.php', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					body: 'task_id=' + taskId
+				})
+				.then(response => response.text())
+				.then(data => {
+					if (data === 'success') {
+						window.location.href = './tasks.php';
+					} else {
+						alert('Failed to mark as done.');
+					}
+				})
+				.catch(error => console.error('Error:', error));
+
 		}
 	</script>
 </body>
