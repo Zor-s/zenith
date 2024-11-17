@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2024 at 08:30 AM
+-- Generation Time: Nov 17, 2024 at 08:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -83,7 +83,8 @@ CREATE TABLE `tasks` (
   `priority` varchar(10) DEFAULT NULL,
   `date_start` datetime DEFAULT NULL,
   `date_due` datetime DEFAULT NULL,
-  `is_finished` tinyint(1) NOT NULL DEFAULT 0
+  `is_finished` tinyint(1) NOT NULL DEFAULT 0,
+  `is_overdue` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,6 +98,13 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`users_id`, `username`, `password`) VALUES
+(1, 'a', '$2y$10$RWjKuyqPXzARwCEpSNahH.vjPlmkJ8jFE1uLr5MPa6wlLzo8N4K7a');
 
 --
 -- Indexes for dumped tables
@@ -129,7 +137,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
