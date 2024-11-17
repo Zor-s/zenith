@@ -220,7 +220,7 @@ $db = $database->connect();
 							if ($row['is_finished'] == 0 && $row['is_overdue'] == 0) {
 								$status = "<p>Due</p>";
 							} elseif ($row['is_finished'] == 1 && $row['is_overdue'] == 0) {
-								$status = "<p>Done</p>";
+								$status = "<p style='color: green;'>Done</p>";
 							} elseif ($row['is_finished'] == 0 && $row['is_overdue'] == 1) {
 								$status = "<p style='color: red;'>Overdue</p>";
 							} elseif ($row['is_finished'] == 1 && $row['is_overdue'] == 1) {
@@ -262,7 +262,7 @@ $db = $database->connect();
 
 
 							<td>
-								<button class=\"btn btn-sm btn-primary me-1\" data-bs-toggle=\"modal\" data-bs-target=\"#editTaskModal\">
+								<button class=\"btn btn-sm btn-primary me-1\" data-bs-toggle=\"modal\" data-bs-target=\"#editModal\" onclick=\"openModal(" . $row['tasks_id'] . ", '" . $row['task_name'] . "', '" . $row['task_description'] . "', '" . $row['priority'] . "', '" . $row['date_due'] . "')\">
 									<i class=\"bi bi-pencil\"></i> Edit
 								</button>
 								<button class=\"btn btn-sm btn-success\" data-bs-toggle=\"modal\" data-bs-target=\"#markDoneModal\" data-task-id=\"" . $row['tasks_id'] . "\">
@@ -354,7 +354,7 @@ $db = $database->connect();
 
 
 
-	<!-- Modal -->
+	<!-- mark done modal -->
 	<div class="modal fade" id="markDoneModal" tabindex="-1" aria-labelledby="markDoneModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -379,13 +379,70 @@ $db = $database->connect();
 
 
 
+
+	<!-- edit modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editModalLabel">Edit Task</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Form for editing the task -->
+					<form id="editTaskForm">
+						<input type="hidden" id="tasks_id_edit_modal" name="tasks_id">
+						<div class="mb-3">
+							<label for="task_name_edit_modal" class="form-label">Task Name</label>
+							<input type="text" class="form-control" id="task_name_edit_modal" name="task_name">
+						</div>
+						<div class="mb-3">
+							<label for="task_description_edit_modal" class="form-label">Task Description</label>
+							<textarea class="form-control" id="task_description_edit_modal" name="task_description"></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="priority_edit_modal" class="form-label">Priority</label>
+							<select class="form-select" id="priority_edit_modal" name="priority">
+								<option value="low">Low</option>
+								<option value="medium">Medium</option>
+								<option value="high">High</option>
+							</select>
+						</div>
+
+						<div class="mb-3">
+							<label for="date_due_edit_modal" class="form-label">Due Date</label>
+							<input type="datetime-local" class="form-control" id="date_due_edit_modal" name="date_due">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="saveTask()">Save Changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
 		// adjust sidebar height
 		window.addEventListener('resize', adjustSidebarHeight);
 		document.addEventListener('DOMContentLoaded', adjustSidebarHeight);
-
-
 
 		function adjustSidebarHeight() {
 			const bodyHeight = document.body.clientHeight;
@@ -395,6 +452,9 @@ $db = $database->connect();
 			}
 		}
 
+
+
+		// mark as done
 		var markDoneModal = document.getElementById('markDoneModal');
 		markDoneModal.addEventListener('show.bs.modal', function(event) {
 			var button = event.relatedTarget;
@@ -422,6 +482,54 @@ $db = $database->connect();
 					}
 				})
 				.catch(error => console.error('Error:', error));
+
+		}
+
+
+
+
+
+
+
+		// edit
+		function openModal(tasks_id, task_name, task_description, priority, date_due) {
+			document.getElementById('tasks_id_edit_modal').value = tasks_id;
+			document.getElementById('task_name_edit_modal').value = task_name;
+			document.getElementById('task_description_edit_modal').value = task_description;
+			document.getElementById('date_due_edit_modal').value = date_due;
+
+			const prioritySelect = document.getElementById('priority_edit_modal');
+			for (let i = 0; i < prioritySelect.options.length; i++) {
+				if (prioritySelect.options[i].value.toLowerCase() === priority.toLowerCase()) { // Case-insensitive comparison
+					prioritySelect.selectedIndex = i;
+					break;
+				}
+			}
+		}
+
+
+
+
+
+		function saveTask() {
+			$.ajax({
+				url: './php/edit_task.php', // Your PHP file
+				type: 'POST',
+				data: $('#editTaskForm').serialize(), // Grabs all your form data
+				success: function(response) {
+					// console.log(response); // Log the response from PHP
+					// alert('Task updated! 🎉'); // Or whatever you wanna do on success
+					// $('#editModal').modal('hide'); // Close that modal!
+					window.location.href = './tasks.php';
+
+
+
+				},
+				error: function(error) {
+					console.error('Error updating task 😫', error);
+					alert('Something went wrong 😬');
+				}
+			});
 
 		}
 	</script>

@@ -385,35 +385,6 @@ $conn = $db->connect();
 
 
 
-        // // overdue checker
-        // window.onload = function() {
-        //     const currentDate = new Date();
-
-        //     const dateElements = document.querySelectorAll('[id^="date-"]');
-
-        //     dateElements.forEach(function(dateElement) {
-        //         const idParts = dateElement.id.split('-');
-        //         const index = idParts[1];
-
-        //         const dateString = dateElement.innerText.trim();
-
-        //         const date = new Date(dateString);
-
-        //         if (date < currentDate) {
-        //             const dueCheckElement = document.getElementById('due-check-' + index);
-        //             if (dueCheckElement) {
-        //                 dueCheckElement.innerText = "Overdue";
-        //             }
-        //         } else {
-        //             const dueCheckElement = document.getElementById('due-check-' + index);
-        //             if (dueCheckElement) {
-        //                 dueCheckElement.innerText = "";
-        //             }
-        //         }
-        //     });
-        // };
-
-
 
 
         const now = new Date();
