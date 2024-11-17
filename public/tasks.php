@@ -1,3 +1,15 @@
+<?php
+session_start();
+require_once './database/database.php';
+date_default_timezone_set('Asia/Manila');
+
+$users_id = $_SESSION['users_id'];
+
+$database = new Database();
+$db = $database->connect();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,6 +53,15 @@
 
 		.table {
 			--bs-table-bg: transparent !important;
+
+			table-layout: fixed;
+			width: 100%;
+		}
+
+		td,
+		th {
+			word-wrap: break-word;
+			white-space: normal;
 		}
 	</style>
 </head>
@@ -73,7 +94,7 @@
 
 
 	<!-- sidebar -->
-	<nav id="sidebar" class="flex-column vh-100 p-3 d-flex justify-content-between" style="width: 200px; background-color: rgba(0, 0, 0, 0); border-right: 2px solid #dbdbdb; z-index: 29;">
+	<nav id="sidebar" class="flex-column p-3 d-flex justify-content-between" style="width: 200px; min-height: 100%; background-color: rgba(0, 0, 0, 0); border-right: 2px solid #dbdbdb; z-index: 29;">
 		<ul class="nav flex-column" style="margin-top: 80px;">
 			<li class="nav-item d-flex justify-content-start px-3">
 				<img src="images/homebutton.svg">
@@ -92,9 +113,23 @@
 
 		<div>
 			<hr>
+			<?php
+
+			// Check if the logout button is clicked
+			if (isset($_POST['logout'])) {
+				session_unset();
+				session_destroy();
+				header("Location: index.php");
+				exit();
+			}
+			?>
 			<div class="d-flex justify-content-center align-items-center">
-				<img style="height: 34px; width: 34px;" src="images/logoutbutton.png" alt="">
-				<p style="margin: 5px; padding: 0px;">LOG OUT</p>
+				<form method="POST">
+					<button type="submit" name="logout" style="background: none; border: none; cursor: pointer; display: flex; align-items: center;">
+						<img style="height: 34px; width: 34px; margin-right: 5px;" src="images/logoutbutton.png" alt="">
+						<p style="margin: 0; padding: 0;">LOG OUT</p>
+					</button>
+				</form>
 			</div>
 		</div>
 	</nav>
@@ -108,7 +143,7 @@
 		<div class="d-flex justify-content-start mt-5">
 
 			<!-- div -->
-			<div style="height: 450px; width: 1035px; background-color: var(--div); border-radius: 20px; margin-right: 30px; padding: 20px;">
+			<div style="height: auto; width: 1035px; background-color: var(--div); border-radius: 20px; margin-right: 30px; padding: 20px;">
 
 				<div class="d-flex justify-content-end">
 					<button style="margin: 0px; padding: 0px; border: none;" data-bs-toggle="modal" data-bs-target="#addTaskModal">
@@ -122,71 +157,106 @@
 						<tr class="text-dark">
 							<th scope="col">Tasks</th>
 							<th scope="col">Priority</th>
-							<th scope="col">Date</th>
+							<th scope="col">Description</th>
 							<th scope="col">Due</th>
+							<th scope="col">Status</th>
 							<th scope="col">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
-						<!-- Sample row 1 -->
-						<tr>
-							<td>Complete Project Report</td>
-							<td>
-								<div class="d-flex justify-content-center align-items-center mb-2" style="width: 45px; height: 35px; background-color: #ffdfdf; border-radius: 5px;">
-									<p style="margin: 0px; padding: 0px; color: #ff0000;">High</p>
-								</div>
-							</td>
-							<td>2024-11-01</td>
-							<td>2024-11-05</td>
-							<td>
-								<button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#editTaskModal">
-									<i class="bi bi-pencil"></i> Edit
-								</button>
-								<button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
-									<i class="bi bi-trash"></i> Delete
-								</button>
-							</td>
-
-							<!-- Sample row 2 -->
-						<tr>
-							<td>Complete Project Report</td>
-							<td>
-								<div class="d-flex justify-content-center align-items-center mb-2" style="width: 70px; height: 35px; background-color: #ffffc3; border-radius: 5px;">
-									<p style="margin: 0px; padding: 0px; color: #aaaa00;">Medium</p>
-								</div>
-							</td>
-							<td>2024-11-01</td>
-							<td>2024-11-05</td>
-							<td>
-								<button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#editTaskModal">
-									<i class="bi bi-pencil"></i> Edit
-								</button>
-								<button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
-									<i class="bi bi-trash"></i> Delete
-								</button>
-							</td>
-
-							<!-- Sample row 3 -->
-						<tr>
-							<td>Complete Project Report</td>
-							<td>
-								<div class="d-flex justify-content-center align-items-center mb-2" style="width: 43px; height: 35px; background-color: #f9eee3; border-radius: 5px;">
-									<p style="margin: 0px; padding: 0px; color: #d58d49;">Low</p>
-								</div>
-							</td>
-							<td>2024-11-01</td>
-							<td>2024-11-05</td>
-							<td>
-								<button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#editTaskModal">
-									<i class="bi bi-pencil"></i> Edit
-								</button>
-								<button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
-									<i class="bi bi-trash"></i> Delete
-								</button>
-							</td>
 
 
-						</tr>
+
+						<?php
+
+						// Update overdue tasks
+						$today_time = date('Y-m-d H:i:s');
+
+						$updateQuery = "UPDATE tasks 
+          						        SET is_overdue = 1 
+          						        WHERE date_due < :today_time 
+          						        AND is_finished = 0 
+          						        AND users_id = :users_id";
+						$updateStmt = $db->prepare($updateQuery);
+						$updateStmt->bindParam(':today_time', $today_time);
+						$updateStmt->bindParam(':users_id', $users_id);
+						$updateStmt->execute();
+
+
+
+						// Define the query to get tasks
+						$query = "SELECT * FROM tasks WHERE users_id = :users_id";
+						$stmt = $db->prepare($query);
+						$stmt->bindParam(':users_id', $users_id);
+						$stmt->execute();
+
+
+
+						// Loop through each task and display in table rows
+						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+							// Determine the status based on 'is_finished' and 'is_overdue'
+							$status = "";
+							if ($row['is_finished'] == 0 && $row['is_overdue'] == 0) {
+								$status = "<p>Due</p>";
+							} elseif ($row['is_finished'] == 1 && $row['is_overdue'] == 0) {
+								$status = "<p>Done</p>";
+							} elseif ($row['is_finished'] == 0 && $row['is_overdue'] == 1) {
+								$status = "<p style='color: red;'>Overdue</p>";
+							} elseif ($row['is_finished'] == 1 && $row['is_overdue'] == 1) {
+								$status = "<p style='color: red;'>Done with Overdue</p>";
+							}
+							
+
+
+
+							$priority = htmlspecialchars($row['priority']);
+
+							if ($priority == 'high') {
+								$priorityStyle = '<div class="d-flex justify-content-center align-items-center mb-2" style="width: 45px; height: 35px; background-color: #ffdfdf; border-radius: 5px;">
+													<p style="margin: 0px; padding: 0px; color: #ff0000;">High</p>
+												  </div>';
+							} elseif ($priority == 'medium') {
+								$priorityStyle = '<div class="d-flex justify-content-center align-items-center mb-2" style="width: 70px; height: 35px; background-color: #ffffc3; border-radius: 5px;">
+													<p style="margin: 0px; padding: 0px; color: #aaaa00;">Medium</p>
+												  </div>';
+							} else {
+								$priorityStyle = '<div class="d-flex justify-content-center align-items-center mb-2" style="width: 43px; height: 35px; background-color: #f9eee3; border-radius: 5px;">
+													<p style="margin: 0px; padding: 0px; color: #d58d49;">Low</p>
+												  </div>';
+							}
+
+
+
+							$dateDue = htmlspecialchars($row['date_due']);
+							$formattedDate = (new DateTime($dateDue))->format('F j, Y g:i A');
+
+
+							// Display the row in the table
+							echo "<tr>
+            <td>" . htmlspecialchars($row['task_name']) . "</td>
+            <td>" . $priorityStyle . "</td>
+            <td>" . htmlspecialchars($row['task_description']) . "</td>
+            <td>" . $formattedDate . "</td>
+            <td>" . $status . "</td>
+
+
+							<td>
+								<button class=\"btn btn-sm btn-primary me-1\" data-bs-toggle=\"modal\" data-bs-target=\"#editTaskModal\">
+									<i class=\"bi bi-pencil\"></i> Edit
+								</button>
+								<button class=\"btn btn-sm btn-danger\" data-bs-toggle=\"modal\" data-bs-target=\"#deleteTaskModal\">
+									<i class=\"bi bi-trash\"></i> Delete
+								</button>
+							</td>
+          </tr>
+		  
+		  ";
+						}
+
+						?>
+
+
+
 					</tbody>
 				</table>
 			</div>
@@ -194,8 +264,6 @@
 
 		</div>
 	</div>
-
-
 
 
 
@@ -214,7 +282,10 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="taskForm">
+					<form action="./php/add_task.php" method="post" id="taskForm">
+
+						<!-- Hidden input for user ID -->
+						<input type="hidden" name="users_id" value="<?php echo $_SESSION['users_id']; ?>">
 
 						<div class="mb-3">
 							<label for="task_name" class="form-label">Task Name</label>
@@ -232,90 +303,21 @@
 								<option value="low">Low</option>
 							</select>
 						</div>
-						<div class="mb-3">
-							<label for="date_start" class="form-label">Start Date</label>
-							<input type="date" class="form-control" id="date_start" name="date_start">
+
+						<div class="mb-3" style="display: none;">
+							<input type="hidden" id="date_start" name="date_start" value="">
+							<input type="hidden" name="form_type" value="form_tasks">
 						</div>
+
 						<div class="mb-3">
 							<label for="date_due" class="form-label">Due Date</label>
-							<input type="date" class="form-control" id="date_due" name="date_due">
+							<input type="datetime-local" class="form-control" id="date_due" name="date_due">
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary" id="saveTaskButton">Save Task</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-	<!-- edit task modal -->
-	<div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form id="editTaskForm">
-						<div class="mb-3">
-							<label for="task_name" class="form-label">Task Name</label>
-							<input type="text" class="form-control" id="task_name" name="task_name" required>
-						</div>
-						<div class="mb-3">
-							<label for="task_description" class="form-label">Task Description</label>
-							<textarea class="form-control" id="task_description" name="task_description"></textarea>
-						</div>
-						<div class="mb-3">
-							<label for="priority" class="form-label">Priority</label>
-							<select class="form-select" id="priority" name="priority">
-								<option value="high">High</option>
-								<option value="medium">Medium</option>
-								<option value="low">Low</option>
-							</select>
-						</div>
-						<div class="mb-3">
-							<label for="date_start" class="form-label">Start Date</label>
-							<input type="date" class="form-control" id="date_start" name="date_start">
-						</div>
-						<div class="mb-3">
-							<label for="date_due" class="form-label">Due Date</label>
-							<input type="date" class="form-control" id="date_due" name="date_due">
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="saveTask()">Save Changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<!-- Delete Task Modal -->
-	<div class="modal fade" id="deleteTaskModal" tabindex="-1" aria-labelledby="deleteTaskModalLabel" aria-hidden="true" data-bs-backdrop="static">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="deleteTaskModalLabel">Delete Task</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form id="deleteTaskForm">
-						<input type="hidden" id="tasks_id" name="tasks_id">
-						<p>Are you sure you want to delete this task?</p>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-danger" onclick="deleteTask()">Delete</button>
+					<button type="submit" class="btn btn-primary" id="saveTaskButton" form="taskForm">Save Task</button>
 				</div>
 			</div>
 		</div>
@@ -325,6 +327,18 @@
 
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		window.addEventListener('resize', adjustSidebarHeight);
+		document.addEventListener('DOMContentLoaded', adjustSidebarHeight);
+
+		function adjustSidebarHeight() {
+			const bodyHeight = document.body.clientHeight;
+			const sidebar = document.getElementById('sidebar');
+			if (sidebar) {
+				sidebar.style.height = bodyHeight + 'px';
+			}
+		}
+	</script>
 </body>
 
 </html>

@@ -305,11 +305,6 @@ $conn = $db->connect();
                                 <option value="low">Low</option>
                             </select>
                         </div>
-                        <!-- <div class="mb-3">
-                            <label for="date_start" class="form-label">Start Date</label>
-                            <input type="datetime-local" class="form-control" id="date_start" name="date_start">
-                        </div> -->
-
 
                         <div class="mb-3" style="display: none;">
                             <input type="hidden" id="date_start" name="date_start" value="">

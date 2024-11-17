@@ -12,7 +12,7 @@ $userId = $_SESSION['users_id'];
 
 // Update overdue tasks
 $today_time = date('Y-m-d H:i:s');
-// echo $today_time;
+
 
 $updateQuery = "UPDATE tasks 
                 SET is_overdue = 1 

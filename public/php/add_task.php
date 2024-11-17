@@ -32,8 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Execute the statement
     if ($stmt->execute()) {
-        echo "<script>alert('Task created successfully'); window.location.href='../home.php';</script>";
+        if ($_POST['form_type'] == "form_tasks") {
+            echo "<script>alert('Task created successfully'); window.location.href='../tasks.php';</script>";
+        }
+        else {
+            echo "<script>alert('Task created successfully'); window.location.href='../home.php';</script>";
 
+        }
     } else {
         echo "Error adding task.";
     }
