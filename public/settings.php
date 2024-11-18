@@ -1,5 +1,5 @@
 <?php
-require_once './database/database.php'; 
+require_once './database/database.php';
 session_start();
 $users_id = $_SESSION['users_id'];
 
@@ -99,16 +99,16 @@ $conn = $db->connect();
     <nav id="sidebar" class="flex-column vh-100 p-3 d-flex justify-content-between" style="width: 200px; background-color: rgba(0, 0, 0, 0); border-right: 2px solid #dbdbdb; z-index: 29;">
         <ul class="nav flex-column" style="margin-top: 80px;">
             <li class="nav-item d-flex justify-content-start px-3">
-                <img src="images/homebutton.svg">
-                <a class="nav-link text-dark" href="home.php">Home</a>
+                <a class="nav-link text-dark" href="home.php"> <img src="images/homebutton.svg">
+                    Home</a>
             </li>
             <li class="nav-item d-flex justify-content-start px-3">
-                <img src="images/taskbutton.svg">
-                <a class="nav-link text-dark" href="tasks.php">Tasks</a>
+                <a class="nav-link text-dark" href="tasks.php"> <img src="images/taskbutton.svg">
+                    Tasks</a>
             </li>
             <li class="nav-item d-flex justify-content-start px-3" style="background-color: var(--primary); border-radius: 10px;">
-                <img src="images/settingsbuttonlight.svg">
-                <a class="nav-link text-light" href="settings.php">Settings</a>
+                <a class="nav-link text-light" href="settings.php"> <img src="images/settingsbuttonlight.svg">
+                    Settings</a>
             </li>
         </ul>
 
@@ -149,10 +149,12 @@ $conn = $db->connect();
             <div style="height: 450px; width: 1035px; border-radius: 20px; margin-right: 30px;">
                 <div class="d-flex justify-content-evenly align-items-center" style="width: 274px; height: 74px; background-color: #0d062d; border-radius: 20px;">
                     <p class="text-white" style="margin: 0px; padding: 0px; font-size: x-large;">Dark Mode</p>
-
-                    <div class="d-flex justify-content-start align-items-center" style="background-color: #ffffff; width: 70px; height: 31px; border-radius: 20px; border-radius: 20px;">
-                        <div style="width: 27px; height: 27px; background-color: #0d062d; border-radius: 50%; margin-left: 3px;"></div>
-                    </div>
+                    
+                    <button id="toggleButton" style="background: none; border: none;">
+                        <div id="transitionDiv" class="d-flex justify-content-start align-items-center" style="background-color: #ffffff; width: 70px; height: 31px; border-radius: 20px; border-radius: 20px;">
+                            <div style="width: 27px; height: 27px; background-color: #0d062d; border-radius: 50%; margin-inline: 3px;"></div>
+                        </div>
+                    </button>
                 </div>
                 <button style="background: none; border: none;" onclick="clearTasks()">
                     <p class="mt-3" style="margin: 0px; padding: 0px; font-size: xx-large; font-weight: 500;">Clear Data</p>
@@ -178,6 +180,25 @@ $conn = $db->connect();
                 })
                 .catch(error => console.error("Network error! 🤬", error));
         }
+
+
+
+        const toggleButton = document.getElementById("toggleButton");
+        const transitionDiv = document.getElementById("transitionDiv");
+
+        let alignedStart = true;
+
+        toggleButton.addEventListener("click", () => {
+            if (alignedStart) {
+                transitionDiv.classList.remove("justify-content-start");
+                transitionDiv.classList.add("justify-content-end");
+            } else {
+                transitionDiv.classList.remove("justify-content-end");
+                transitionDiv.classList.add("justify-content-start");
+            }
+            alignedStart = !alignedStart;
+        });
+
     </script>
 </body>
 

@@ -118,16 +118,16 @@ $db = $database->connect();
 	<nav id="sidebar" class="flex-column p-3 d-flex justify-content-between" style="width: 200px; min-height: 100%; background-color: rgba(0, 0, 0, 0); border-right: 2px solid #dbdbdb; z-index: 29;">
 		<ul class="nav flex-column" style="margin-top: 80px;">
 			<li class="nav-item d-flex justify-content-start px-3">
-				<img src="images/homebutton.svg">
-				<a class="nav-link text-dark" href="home.php">Home</a>
+				<a class="nav-link text-dark" href="home.php"> <img src="images/homebutton.svg">
+					Home</a>
 			</li>
 			<li class="nav-item d-flex justify-content-start px-3" style="background-color: var(--primary); border-radius: 10px;">
-				<img src="images/taskbuttonlight.svg">
-				<a class="nav-link text-light" href="tasks.php">Tasks</a>
+				<a class="nav-link text-light" href="tasks.php"> <img src="images/taskbuttonlight.svg">
+					Tasks</a>
 			</li>
 			<li class="nav-item d-flex justify-content-start px-3">
-				<img src="images/settingsbutton.svg">
-				<a class="nav-link text-dark" href="settings.php">Settings</a>
+				<a class="nav-link text-dark" href="settings.php"> <img src="images/settingsbutton.svg">
+					Settings</a>
 			</li>
 		</ul>
 
