@@ -39,7 +39,7 @@ if ($stmt->rowCount() > 0) {
 
 
         echo '
-        <div id="done-task-' . $row['tasks_id'] . '" class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
+        <div id="done-task-' . $row['tasks_id'] . '" class="p-3 my-3" style="width: 100%; height: auto; background-color: var(--div-lighter); border-radius: 20px;">
             <div class="d-flex justify-content-between">
                 ' . $priorityStyle . '        
 
@@ -55,5 +55,5 @@ if ($stmt->rowCount() > 0) {
         </div>';
     }
 } else {
-    echo "No tasks are due today.";
+    echo "<p style='color: var(--text)'>No tasks are finished.</p>";
 }

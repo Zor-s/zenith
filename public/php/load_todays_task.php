@@ -66,13 +66,13 @@ if ($stmt->rowCount() > 0) {
 
 
         echo '
-        <div id="today-task-' . $row['tasks_id'] . '" class="p-3 my-3" style="width: 100%; height: auto; background-color: #ffffff; border-radius: 20px;">
+        <div id="today-task-' . $row['tasks_id'] . '" class="p-3 my-3" style="width: 100%; height: auto; background-color: var(--div-lighter); border-radius: 20px;">
             <div class="d-flex justify-content-between">
                 ' . $priorityStyle . '        
 
   <div class="dropdown">
     <button class="dropdown-toggle" style="font-weight: 900; border: none; background: none; padding-right: 0;" data-bs-toggle="dropdown" aria-expanded="false">
-        ...
+        <p style="color: var(--text);">...</p>
     </button>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="#" onclick="markAsDone(' . $row['tasks_id'] . ')">Mark as Done</a></li>
@@ -89,5 +89,5 @@ if ($stmt->rowCount() > 0) {
         </div>';
     }
 } else {
-    echo "No tasks are due today.";
+    echo "<p style='color: var(--text)'>No tasks are due today.</p>";
 }

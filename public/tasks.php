@@ -18,7 +18,8 @@ $db = $database->connect();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Tasks</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/globals.css">
+	<link rel="stylesheet" href="<?php require_once "./php/darkmode_check.php";
+									echo $stylesheet; ?>">
 
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
@@ -35,7 +36,7 @@ $db = $database->connect();
 		}
 
 		.navbar-custom {
-			background-color: #ffffff !important;
+			background-color: var(--div) !important;
 		}
 
 		#sidebar {
@@ -53,7 +54,6 @@ $db = $database->connect();
 
 		.table {
 			--bs-table-bg: transparent !important;
-
 			table-layout: fixed;
 			width: 100%;
 		}
@@ -62,6 +62,7 @@ $db = $database->connect();
 		th {
 			word-wrap: break-word;
 			white-space: normal;
+			color: var(--text) !important;
 		}
 	</style>
 </head>
@@ -71,16 +72,42 @@ $db = $database->connect();
 	<!-- top navbar -->
 	<nav class="navbar navbar-expand-sm navbar-light bg-light navbar-custom">
 		<div class="container-fluid">
-			<img class="navbar-brand" src="images/ZENITHfd.png" alt="logo 2" style="width: 100px; height: auto; margin-inline: 20px;">
+			<img class="navbar-brand" src="
+			                                    <?php
+												$user_id = $_SESSION['users_id'] ?? null;
+
+												$color = "images/zenithfdlight.svg";
+
+												if ($user_id) {
+													try {
+
+														$stmt = $conn->prepare("SELECT is_darkmode FROM users WHERE users_id = :user_id");
+														$stmt->bindParam(':user_id', $user_id);
+														$stmt->execute();
+
+														$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+														if ($user && $user['is_darkmode'] == 1) {
+															$color = "images/zenithfddark.svg";
+														}
+													} catch (PDOException $e) {
+														echo "Error: " . $e->getMessage();
+													}
+												}
+												echo $color;
+												?>
+
+			
+			" alt="logo 2" style="width: 100px; height: auto; margin-inline: 20px;">
 			<img class="navbar-brand" src="images/backbutton.svg" alt="logo 2" style="width: 26px; height: 20; margin: 0px; padding: 0px;">
-			<img class="navbar-brand" src="images/searchbar.svg" alt="logo 2" style="width: 417px; height: 44; margin-left: 60px; padding: 0px;">
+			<!-- <img class="navbar-brand" src="images/searchbar.svg" alt="logo 2" style="width: 417px; height: 44; margin-left: 60px; padding: 0px;"> -->
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item">
+					<li style="color: var(--text);" class="nav-item">
 						Welcome,
 
 
@@ -118,7 +145,7 @@ $db = $database->connect();
 	<nav id="sidebar" class="flex-column p-3 d-flex justify-content-between" style="width: 200px; min-height: 100%; background-color: rgba(0, 0, 0, 0); border-right: 2px solid #dbdbdb; z-index: 29;">
 		<ul class="nav flex-column" style="margin-top: 80px;">
 			<li class="nav-item d-flex justify-content-start px-3">
-				<a class="nav-link text-dark" href="home.php"> <img src="images/homebutton.svg">
+				<a style="color: var(--text);" class="nav-link" href="home.php"> <img src="images/homebutton.svg">
 					Home</a>
 			</li>
 			<li class="nav-item d-flex justify-content-start px-3" style="background-color: var(--primary); border-radius: 10px;">
@@ -126,7 +153,7 @@ $db = $database->connect();
 					Tasks</a>
 			</li>
 			<li class="nav-item d-flex justify-content-start px-3">
-				<a class="nav-link text-dark" href="settings.php"> <img src="images/settingsbutton.svg">
+				<a style="color: var(--text);" class="nav-link" href="settings.php"> <img src="images/settingsbutton.svg">
 					Settings</a>
 			</li>
 		</ul>
@@ -147,7 +174,34 @@ $db = $database->connect();
 			<div class="d-flex justify-content-center align-items-center">
 				<form method="POST">
 					<button type="submit" name="logout" style="background: none; border: none; cursor: pointer; display: flex; align-items: center;">
-						<img style="height: 34px; width: 34px; margin-right: 5px;" src="images/logoutbutton.png" alt="">
+						<img style="height: 34px; width: 34px; margin-right: 5px;" src="
+						
+						
+						                        <?php
+												$user_id = $_SESSION['users_id'] ?? null;
+
+												$color = "images/logoutbuttonlight.svg";
+
+												if ($user_id) {
+													try {
+
+														$stmt = $conn->prepare("SELECT is_darkmode FROM users WHERE users_id = :user_id");
+														$stmt->bindParam(':user_id', $user_id);
+														$stmt->execute();
+
+														$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+														if ($user && $user['is_darkmode'] == 1) {
+															$color = "images/logoutbuttondark.svg";
+														}
+													} catch (PDOException $e) {
+														echo "Error: " . $e->getMessage();
+													}
+												}
+												echo $color;
+												?>
+
+						" alt="">
 						<p style="margin: 0; padding: 0;">LOG OUT</p>
 					</button>
 				</form>
@@ -168,14 +222,14 @@ $db = $database->connect();
 
 				<div class="d-flex justify-content-end">
 					<button style="margin: 0px; padding: 0px; border: none;" data-bs-toggle="modal" data-bs-target="#addTaskModal">
-						<img src="images/addtask.svg" style="width: 30px; height: auto;"
+						<img src="images/addtask.svg" style="width: 30px; height: auto; background-color: var(--div);"
 							onmouseover="this.style.filter='brightness(50%)'" onmouseout="this.style.filter='brightness(100%)'">
 					</button>
 				</div>
 
 				<table class="table table-borderless">
 					<thead>
-						<tr class="text-dark">
+						<tr>
 							<th scope="col">Tasks</th>
 							<th scope="col">Priority</th>
 							<th scope="col">Description</th>
