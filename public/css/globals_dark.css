@@ -37,5 +37,8 @@
   p {
     font-size: 14px;
   }
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Invert colors (might make it white if it's black) */ 
+  }
   
   

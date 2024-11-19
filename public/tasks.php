@@ -351,8 +351,8 @@ $db = $database->connect();
 	<!-- Add task modal-->
 	<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true" data-bs-backdrop="static">
 		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
+			<div style="background-color: var(--div);" class="modal-content">
+				<div style="background-color: var(--div-lighter);" class="modal-header">
 					<h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
@@ -363,19 +363,19 @@ $db = $database->connect();
 						<input type="hidden" name="users_id" value="<?php echo $_SESSION['users_id']; ?>">
 
 						<div class="mb-3">
-							<label for="task_name" class="form-label">Task Name</label>
-							<input type="text" class="form-control" id="task_name" name="task_name" required>
+							<label style="color: var(--text);" for="task_name" class="form-label">Task Name</label>
+							<input style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" type="text" class="form-control" id="task_name" name="task_name" required>
 						</div>
 						<div class="mb-3">
-							<label for="task_description" class="form-label">Task Description</label>
-							<textarea class="form-control" id="task_description" name="task_description"></textarea>
+							<label style="color: var(--text);" for="task_description" class="form-label">Task Description</label>
+							<textarea style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" class="form-control" id="task_description" name="task_description"></textarea>
 						</div>
 						<div class="mb-3">
-							<label for="priority" class="form-label">Priority</label>
-							<select class="form-select" id="priority" name="priority">
-								<option value="high">High</option>
-								<option value="medium">Medium</option>
-								<option value="low">Low</option>
+							<label style="color: var(--text);" for="priority" class="form-label">Priority</label>
+							<select style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" class="form-select" id="priority" name="priority">
+								<option style="color: var(--text);" value="high">High</option>
+								<option style="color: var(--text);" value="medium">Medium</option>
+								<option style="color: var(--text);" value="low">Low</option>
 							</select>
 						</div>
 
@@ -385,8 +385,8 @@ $db = $database->connect();
 						</div>
 
 						<div class="mb-3">
-							<label for="date_due" class="form-label">Due Date</label>
-							<input type="datetime-local" class="form-control" id="date_due" name="date_due">
+							<label style="color: var(--text);" for="date_due" class="form-label">Due Date</label>
+							<input style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" type="datetime-local" class="form-control" id="date_due" name="date_due">
 						</div>
 					</form>
 				</div>
