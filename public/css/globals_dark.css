@@ -1,0 +1,40 @@
+/* Variables to be reused */
+:root {
+    --background-color: #0d062d;
+    --primary: #5030e5;
+    --primary-lite: #dcd6fa;
+    --text: #ffffff;
+    --div: #0d062d;
+  }
+
+  
+  body{
+    background-color: var(--background-color);
+
+  }
+  h1, h2,h3,h4,h5,p{
+    color: var(--text);
+
+  }
+  
+  h3, p {
+    word-wrap: break-word;
+  }
+  
+  h1 {
+    font-size: 50px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  h3 {
+    font-size: 17px;
+  }
+  
+  p {
+    font-size: 14px;
+  }
+  
+  

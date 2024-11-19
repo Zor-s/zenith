@@ -1,9 +1,14 @@
 /* Variables to be reused */
 :root {
+  --background-color: #ffffff;
   --primary: #5030e5;
   --primary-lite: #dcd6fa;
   --text: #0d062d;
   --div: #f5f5f5;
+}
+
+body{
+  background-color: var(--background-color);
 }
 
 h3, p {
@@ -25,3 +30,4 @@ h3 {
 p {
   font-size: 14px;
 }
+
