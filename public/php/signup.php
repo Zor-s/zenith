@@ -18,7 +18,7 @@ if ($checkStmt->fetchColumn() > 0) {
     // Username doesn't exist, proceed to add the user
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("CALL add_user(:username, :password)");
+    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
 

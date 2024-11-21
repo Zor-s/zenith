@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2024 at 07:20 AM
+-- Generation Time: Nov 21, 2024 at 08:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -22,52 +22,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `zenith` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `zenith`;
-
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_task` (IN `p_users_id` INT, IN `p_task_name` VARCHAR(100), IN `p_task_description` TEXT, IN `p_priority` VARCHAR(10), IN `p_date_start` DATETIME, IN `p_date_due` DATETIME)   BEGIN
-    INSERT INTO tasks (
-        users_id, 
-        task_name, 
-        task_description, 
-        priority, 
-        date_start, 
-        date_due
-    ) 
-    VALUES (
-        p_users_id, 
-        p_task_name, 
-        p_task_description, 
-        p_priority, 
-        p_date_start, 
-        p_date_due
-    );
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_user` (IN `p_username` VARCHAR(50), IN `p_password` VARCHAR(255))   BEGIN
-    INSERT INTO users (username, password) 
-    VALUES (p_username, p_password);
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_task` (IN `p_task_id` INT)   BEGIN
-    DELETE FROM tasks
-    WHERE tasks_id = p_task_id;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_task` (IN `p_tasks_id` INT, IN `p_task_name` VARCHAR(100), IN `p_task_description` TEXT, IN `p_priority` VARCHAR(10), IN `p_date_start` DATE, IN `p_date_due` DATE)   BEGIN
-    UPDATE tasks
-    SET 
-        task_name = COALESCE(p_task_name, task_name),
-        task_description = COALESCE(p_task_description, task_description),
-        priority = COALESCE(p_priority, priority),
-        date_start = COALESCE(p_date_start, date_start),
-        date_due = COALESCE(p_date_due, date_due)
-    WHERE tasks_id = p_tasks_id;
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -101,6 +55,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`users_id`, `username`, `password`, `is_darkmode`) VALUES
+(1, 'aa', '$2y$10$NoQrfMWhfuQHnri0ddAluuqoFBRt8trTynjcuy.70iNfdDUHX9Jf2', 0);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -131,7 +92,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

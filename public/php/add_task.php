@@ -18,8 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date_due = $_POST['date_due'];
 
     // Prepare the stored procedure call
-    $sql = "CALL add_task(:users_id, :task_name, :task_description, :priority, :date_start, :date_due)";
-
+    $sql = "INSERT INTO tasks (users_id, task_name, task_description, priority, date_start, date_due) 
+        VALUES (:users_id, :task_name, :task_description, :priority, :date_start, :date_due)";
+        
     $stmt = $conn->prepare($sql);
 
     // Bind parameters to the statement
