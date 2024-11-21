@@ -111,7 +111,7 @@
 
 <body>
     <div class="signup-container">
-        <img src="images/ZENITHfd.png" alt="Zenith logo" class="logo-signup">
+        <img src="images/ZENITHfdlight.svg" alt="Zenith logo" class="logo-signup">
         <form action="./php/signup.php" method="post" onsubmit="return checkPasswordsMatch()">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter username" required>

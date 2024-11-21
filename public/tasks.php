@@ -411,13 +411,13 @@ $db = $database->connect();
 	<!-- mark done modal -->
 	<div class="modal fade" id="markDoneModal" tabindex="-1" aria-labelledby="markDoneModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
+			<div style="background-color: var(--div);" class="modal-content">
+				<div style="background-color: var(--div-lighter);" class="modal-header">
 					<h5 class="modal-title" id="markDoneModalLabel">Mark Task as Done</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					Are you sure you want to mark this task as done?
+					<p style="color: var(--text);">Are you sure you want to mark this task as done?</p>
 					<!-- Hidden Task ID Input -->
 					<input type="hidden" id="task_id" name="task_id" value="">
 				</div>
@@ -437,8 +437,8 @@ $db = $database->connect();
 	<!-- edit modal -->
 	<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
+			<div style="background-color: var(--div);" class="modal-content">
+				<div style="background-color: var(--div-lighter);" class="modal-header">
 					<h5 class="modal-title" id="editModalLabel">Edit Task</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
@@ -447,25 +447,25 @@ $db = $database->connect();
 					<form id="editTaskForm">
 						<input type="hidden" id="tasks_id_edit_modal" name="tasks_id">
 						<div class="mb-3">
-							<label for="task_name_edit_modal" class="form-label">Task Name</label>
-							<input type="text" class="form-control" id="task_name_edit_modal" name="task_name">
+							<label style="color: var(--text);" for="task_name_edit_modal" class="form-label">Task Name</label>
+							<input style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" type="text" class="form-control" id="task_name_edit_modal" name="task_name">
 						</div>
 						<div class="mb-3">
-							<label for="task_description_edit_modal" class="form-label">Task Description</label>
-							<textarea class="form-control" id="task_description_edit_modal" name="task_description"></textarea>
+							<label style="color: var(--text);" for="task_description_edit_modal" class="form-label">Task Description</label>
+							<textarea style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" class="form-control" id="task_description_edit_modal" name="task_description"></textarea>
 						</div>
 						<div class="mb-3">
-							<label for="priority_edit_modal" class="form-label">Priority</label>
-							<select class="form-select" id="priority_edit_modal" name="priority">
-								<option value="low">Low</option>
-								<option value="medium">Medium</option>
-								<option value="high">High</option>
+							<label style="color: var(--text);" for="priority_edit_modal" class="form-label">Priority</label>
+							<select style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" class="form-select" id="priority_edit_modal" name="priority">
+								<option style="color: var(--text);" value="low">Low</option>
+								<option style="color: var(--text);" value="medium">Medium</option>
+								<option style="color: var(--text);" value="high">High</option>
 							</select>
 						</div>
 
 						<div class="mb-3">
-							<label for="date_due_edit_modal" class="form-label">Due Date</label>
-							<input type="datetime-local" class="form-control" id="date_due_edit_modal" name="date_due">
+							<label style="color: var(--text);" for="date_due_edit_modal" class="form-label">Due Date</label>
+							<input style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" type="datetime-local" class="form-control" id="date_due_edit_modal" name="date_due">
 						</div>
 					</form>
 				</div>

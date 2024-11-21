@@ -289,7 +289,7 @@
         </div>
         <div class="form-container">
             <form action="./php/login.php" method="post">
-                <div id="logo" class="pb-4"><img src="images/ZENITHfd.png" width="200px" alt="Zenith Logo" draggable="false"></div>
+                <div id="logo" class="pb-4"><img src="images/ZENITHfdlight.svg" width="200px" alt="Zenith Logo" draggable="false"></div>
                 <div id="greeting"><strong>Nice to see you again!</strong></div>
                 <div class="form-group mt-3">
                     <label for="username" class="ps-3" id="loginLabel">Login</label>
