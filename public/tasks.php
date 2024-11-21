@@ -386,7 +386,7 @@ $db = $database->connect();
 
 						<div class="mb-3">
 							<label style="color: var(--text);" for="date_due" class="form-label">Due Date</label>
-							<input style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" type="datetime-local" class="form-control" id="date_due" name="date_due">
+							<input style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" type="datetime-local" class="form-control" id="date_due" name="date_due" required>
 						</div>
 					</form>
 				</div>
@@ -465,7 +465,7 @@ $db = $database->connect();
 
 						<div class="mb-3">
 							<label style="color: var(--text);" for="date_due_edit_modal" class="form-label">Due Date</label>
-							<input style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" type="datetime-local" class="form-control" id="date_due_edit_modal" name="date_due">
+							<input style="background-color: var(--div-lighter); border: var(--div); color: var(--text);" type="datetime-local" class="form-control" id="date_due_edit_modal" name="date_due" required>
 						</div>
 					</form>
 				</div>
